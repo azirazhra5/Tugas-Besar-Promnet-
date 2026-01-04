@@ -8,7 +8,6 @@ if (!isset($_SESSION['user'])) {
 
 $user = $_SESSION['user'];
 
-// ambil produk dari database
 $produk = query("SELECT * FROM produk ORDER BY id_produk DESC");
 ?>
 

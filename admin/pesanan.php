@@ -6,18 +6,13 @@ if (!isset($_SESSION['admin'])) {
     exit; 
 }
 
-// ================================
-// UPDATE STATUS PESANAN
-// ================================
+// update status pesanan
 if (isset($_POST['update_status'])) {
     $id_pesanan = (int)$_POST['id_pesanan'];
     $status     = $_POST['status'];
     mysqli_query($conn, "UPDATE pesanan SET status='$status' WHERE id_pesanan=$id_pesanan");
 }
 
-// ================================
-// AMBIL DATA PESANAN
-// ================================
 $pesanan = mysqli_query($conn, "
     SELECT 
         pesanan.id_pesanan,
@@ -33,7 +28,7 @@ $pesanan = mysqli_query($conn, "
     ORDER BY pesanan.id_pesanan DESC
 ");
 
-// Cek error query
+
 if (!$pesanan) {
     die("Query Error: " . mysqli_error($conn));
 }
@@ -85,7 +80,6 @@ body{ background:#f5e6d3; }
 <?php if (mysqli_num_rows($pesanan) > 0): ?>
     <?php while ($p = mysqli_fetch_assoc($pesanan)): ?>
         <?php
-        // Badge warna sesuai status
         $badge='badge-pending';
         if($p['status']=='proses')$badge='badge-proses';
         if($p['status']=='selesai')$badge='badge-selesai';
@@ -99,7 +93,6 @@ body{ background:#f5e6d3; }
             <td>Rp <?= number_format($p['total'] ?? 0); ?></td>
             <td><span class="badge <?= $badge ?>"><?= ucfirst($p['status'] ?? ''); ?></span></td>
             <td>
-                <!-- Form update status -->
                 <form method="post" class="d-inline">
                     <input type="hidden" name="id_pesanan" value="<?= $p['id_pesanan']; ?>">
                     <select name="status" class="form-select form-select-sm d-inline w-auto">

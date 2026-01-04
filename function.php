@@ -1,17 +1,11 @@
 <?php
 session_start();
 
-/* ================================
-   KONEKSI DATABASE
-================================ */
 $conn = mysqli_connect("localhost", "root", "", "cookieraa");
 if (!$conn) {
     die("Koneksi database gagal: " . mysqli_connect_error());
 }
 
-/* ================================
-   QUERY HELPER
-================================ */
 function query($query){
     global $conn;
     $result = mysqli_query($conn, $query);
@@ -25,9 +19,7 @@ function query($query){
     return $rows;
 }
 
-/* ================================
-   LOGIN ADMIN
-================================ */
+///login admin///
 function loginAdmin($username, $password){
     global $conn;
 
@@ -53,9 +45,7 @@ function loginAdmin($username, $password){
     return false;
 }
 
-/* ================================
-   UPLOAD GAMBAR PRODUK
-================================ */
+///gambar produk
 function uploadGambar(){
     if (!isset($_FILES['gambar']) || $_FILES['gambar']['error'] === 4) {
         return false;
@@ -78,9 +68,7 @@ function uploadGambar(){
     return $namaBaru;
 }
 
-/* ================================
-   TAMBAH PRODUK
-================================ */
+///tambah produk
 function tambahProduk($data){
     global $conn;
 
@@ -102,9 +90,7 @@ function tambahProduk($data){
     return mysqli_affected_rows($conn);
 }
 
-/* ================================
-   EDIT PRODUK
-================================ */
+///edit produk
 function editProduk($data){
     global $conn;
 
@@ -137,9 +123,7 @@ function editProduk($data){
     return mysqli_affected_rows($conn);
 }
 
-/* ================================
-   HAPUS PRODUK
-================================ */
+///hapus produk
 function hapusProduk($id){
     global $conn;
 
@@ -155,9 +139,7 @@ function hapusProduk($id){
     return mysqli_affected_rows($conn);
 }
 
-/* ================================
-   DETAIL PESANAN
-================================ */
+///detail pesanan
 function getPesananDetail($id_pesanan){
     global $conn;
     $id_pesanan = (int)$id_pesanan;

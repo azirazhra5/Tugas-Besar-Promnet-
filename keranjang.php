@@ -1,20 +1,16 @@
 <?php
 require 'function.php';
 
-// cek login
 if (!isset($_SESSION['user'])) {
     header("Location: login_user.php");
     exit;
 }
 
-// init cart
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
 
-// =======================
-// TAMBAH PRODUK (dari beranda)
-// =======================
+
 if (isset($_GET['id'])) {
     $id = (int)$_GET['id'];
     $produk = query("SELECT * FROM produk WHERE id_produk=$id")[0];
@@ -35,9 +31,7 @@ if (isset($_GET['id'])) {
     exit;
 }
 
-// =======================
-// UPDATE QTY
-// =======================
+
 if (isset($_POST['update'])) {
     foreach ($_POST['qty'] as $id => $qty) {
         $qty = (int)$qty;
@@ -53,9 +47,6 @@ if (isset($_POST['update'])) {
     exit;
 }
 
-// =======================
-// HAPUS ITEM
-// =======================
 if (isset($_GET['hapus'])) {
     unset($_SESSION['cart'][$_GET['hapus']]);
     header("Location: keranjang.php");
@@ -71,17 +62,14 @@ if (isset($_GET['hapus'])) {
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <style>
-/* BACKGROUND */
 body{
   background:#f3e5d8;
 }
 
-/* JUDUL */
 h3{
   color:#6d4c41;
 }
 
-/* TABLE */
 .table{
   border-radius:14px;
   overflow:hidden;
@@ -91,13 +79,11 @@ h3{
   background:#efdfcf;
 }
 
-/* INPUT QTY */
 input[type=number]{
   width:70px;
   margin:auto;
 }
 
-/* BUTTON COKLAT */
 .btn-coklat{
   background:#9f7d3f;
   border:#9f7d3f;
@@ -110,7 +96,6 @@ input[type=number]{
   color:white;
 }
 
-/* BUTTON HAPUS */
 .btn-hapus{
   background:#b05a4a;
   border:#b05a4a;
